@@ -1,23 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import GalleryModal from "./components/GalleryModal";
+import Modal from "./components/Modal";
+import useModal from "./hooks/useModal";
 
 function App() {
+  const [isOpenLoginModal, openLoginModal, closeLoginModal] = useModal();
+  const [isOpenChatModal, openChatModal, closeChatModal] = useModal();
+  const [isOpenGalleryModal, openGalleryModal, closeGalleryModal] = useModal();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <button onClick={openLoginModal}>Open Login Modal</button>
+      <button onClick={openChatModal}>Open Chat Modal</button>
+      <button onClick={openGalleryModal}>Open Gallery Modal</button>
+
+      {/*isOpenModal && <Modal />*/}
+      {/*<Modal isOpen={isOpenModal} closeModal={closeModal} />*/}
+
+      <Modal
+        isOpen={isOpenLoginModal}
+        closeModal={closeLoginModal}
+        title="Login"
+      >
+        <form>
+          <input type="email" placeholder="Correo" />
+          <input type="password" placeholder="Contraseña" />
+        </form>
+      </Modal>
+
+      <Modal isOpen={isOpenChatModal} closeModal={closeChatModal} title="Chat">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hola!! <b>- Luis</b>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <p>
+          Que hace <b>- Luis</b>
+        </p>
+      </Modal>
+
+      <GalleryModal
+        isOpen={isOpenGalleryModal}
+        closeModal={closeGalleryModal}
+      />
     </div>
   );
 }
